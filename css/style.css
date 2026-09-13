@@ -37,3 +37,21 @@ button {
     border: 0;
     border-radius: 999px;
 }
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 320px;
+    padding: 32px;
+    color: white;
+    background: #6f3b1f;
+    border-radius: 24px;
+}
+
+.footer .contact-info {
+    padding-left: 2rem;
+}
+
+.footer .operational-hours {
+    padding-right: 2rem;
+}
