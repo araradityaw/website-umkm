@@ -73,5 +73,16 @@ figure { margin: 0 0 24px; }
 figcaption { margin-top: 8px; color: #6b5b52; }
 table { width: 100%; border-collapse: collapse; }
 caption { margin-bottom: 8px; font-weight: 700; text-align: left; }
+thead { background: #f1e3d3;}
 th,
 td { padding: 10px; text-align: left; border: 1px solid #dccbbc; }
+
+.product-media {
+    padding: 24px;
+    color: white;
+    text-align: center;
+}
+
+.product-media img {
+    border-radius: 24px;
+}
