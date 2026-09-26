@@ -55,7 +55,7 @@ button {
     margin-bottom: 12px;
 }
 
-.footer { padding: 24px 20px; color: white; text-align: center; background: #2f2118; }
+.site-footer { padding: 24px 20px; color: white; text-align: center; background: #2f2118; }
 
 .content-wrapper {
     max-width: 920px;
@@ -86,3 +86,8 @@ td { padding: 10px; text-align: left; border: 1px solid #dccbbc; }
 .product-media img {
     border-radius: 24px;
 }
+
+.field { margin-bottom: 16px; }
+.field label { display: block; margin-bottom: 6px; }
+fieldset { margin: 0 0 16px; }
+#preview-form { padding: 16px; white-space: pre-wrap; background: white; border: 1px solid #dccbbc; }
