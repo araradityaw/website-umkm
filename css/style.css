@@ -1,19 +1,21 @@
 :root {
-  --color-primary: #6f3b1f;
-  --color-primary-strong: #4b2715;
-  --color-text: #2f2118;
-  --color-muted: #6b5b52;
-  --color-surface: #ffffff;
-  --color-surface-soft: #fff8f0;
-  --color-border: #dccbbc;
-  --color-focus: #1d4ed8;
+  --color-primary: #8b6849;
+  --color-primary-strong: #6f4f35;
+  --color-text: #30271f;
+  --color-muted: #75685d;
+  --color-surface: #fffdf9;
+  --color-surface-soft: #f7f1e8;
+  --color-border: #dfd2c1;
+  --color-focus: #8b4513;
   --space-1: 0.5rem;
   --space-2: 0.75rem;
   --space-3: 1rem;
   --space-4: 1.5rem;
   --space-5: 2rem;
+  --space-6: 2.5rem;
   --radius-sm: 0.5rem;
   --radius-md: 0.875rem;
+  --radius-lg: 1.5rem;
   --shadow-card: 0 0.5rem 1.5rem rgb(47 33 24 / 0.1);
 }
 
@@ -43,12 +45,8 @@ body {
   background: var(--color-text);
 }
 .skip-link:focus { top: var(--space-3); }
-.site-header { padding: 16px 20px; background: white; border-bottom: 1px solid #dccbbc; }
-.nav { max-width: 920px; margin: 0 auto; }
-.brand { display: inline-block; margin-bottom: 8px; color: #4b2715; font-weight: 800; text-decoration: none; }
 .nav ul { padding: 0; margin: 0; list-style: none; }
 .nav li { display: inline-block; margin-right: 12px; }
-.nav a[aria-current="page"] { font-weight: 800; }
 a { color: var(--color-primary); }
 a:hover { color: var(--color-primary-strong); }
 :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
@@ -90,15 +88,15 @@ img {
   font-weight: 700;
   text-decoration: none;
   background: #fef3c7;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
 }
 .page { padding-block: var(--space-5); }
 
 .hero {
-  padding: var(--space-5);
+  padding: var(--space-6);
   color: var(--color-surface);
   background: var(--color-primary);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
 }
 h1,
 h2,
@@ -121,7 +119,7 @@ button {
   cursor: pointer;
   background: var(--color-primary);
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
 }
 .button:hover,
 button:hover { color: var(--color-surface); background: var(--color-primary-strong); }
@@ -137,9 +135,8 @@ button:hover { color: var(--color-surface); background: var(--color-primary-stro
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    padding: 32px;
+    padding: var(--space-6);
     color: var(--color-primary);
-    border-radius: 24px;
     text-align: left;
 }
 
