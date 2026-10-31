@@ -285,6 +285,68 @@ audio { max-width: 100%; }
   color: #991b1b;
 }
 
+.gallery-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: -12px -12px 0;
+}
+
+.gallery-image img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.image-badges {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.featured-badge{
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    background-color: #8b4513;
+    color: white;
+}
+
+.gallery-image .stock-badge {
+    display: inline-block;
+    white-space: nowrap;
+    margin-left: auto;
+    margin-block-start: 0;
+}
+
+.product-info {
+    margin-top: 8px;
+    padding: 4px 0 0;
+}
+
+.product-info h3 {
+    margin: 4px 0;
+}
+
+.product-info p {
+    margin: 5px 0;
+}
+
+.product-info .price {
+    margin: 8px 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
 
 @media (min-width: 42rem) {
   .nav ul { flex-direction: row; }
