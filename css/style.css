@@ -285,6 +285,11 @@ audio { max-width: 100%; }
   color: #991b1b;
 }
 
+#produk-unggulan {
+  font-weight: 700;
+  color: var(--color-primary, #6f3b1f);
+}
+
 .gallery-image {
     position: relative;
     overflow: hidden;

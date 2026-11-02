@@ -1,9 +1,10 @@
 "use strict";
 
 const produkUmkm = [
-  { nama: "Arabika Gayo", kategori: "Kopi", harga: 85000, stok: 12 },
-  { nama: "Robusta Temanggung", kategori: "Kopi", harga: 65000, stok: 1 },
-  { nama: "Paket Seduh", kategori: "Bundling", harga: 125000, stok: 0 },
+  { nama: "Arabika Gayo", kategori: "Kopi", harga: 85000, stok: 12, unggulan: true },
+  { nama: "Robusta Temanggung", kategori: "Kopi", harga: 65000, stok: 4, unggulan: false },
+  { nama: "Paket Seduh", kategori: "Bundling", harga: 125000, stok: 0, unggulan: false },
+  { nama: "Drip Bag Nusantara", kategori: "Kopi", harga: 45000, stok: 18, unggulan: false },
 ];
 
 const galeriProduk = [
@@ -41,11 +42,13 @@ const galeriProduk = [
   },
 ];
 
-const formatRupiah = new Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  maximumFractionDigits: 0,
-});
+function formatRupiah(nilai) {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(nilai);
+}
 
 const statusStok = (stok) => {
     if (stok === 0) {
@@ -68,38 +71,45 @@ const labelKategori = (kategori) => {
     }
 };
 
+function buatKartuProduk(produk) {
+  const status = statusStok(produk.stok);
+
+  return `
+    <article class="js-product-card">
+      <h3>${produk.nama}</h3>
+      <p class="category-note">${produk.kategori}</p>
+      <p class="price">${formatRupiah(produk.harga)}</p>
+      <span class="stock-badge ${status.className}">${status.label}</span>
+    </article>
+  `;
+}
+
+produkUmkm.forEach((produk) => {
+    console.log("Debug produk:", produk.nama, "stok:", produk.stok);
+});
+console.table(produkUmkm);
+
 function renderProduk() {
     const grid = document.querySelector("#produk-dinamis");
     const ringkasan = document.querySelector("#produk-ringkasan");
+    const unggulan = document.querySelector("#produk-unggulan");
 
-    if (!grid || !ringkasan) {
+    if (!grid || !ringkasan || !unggulan) {
+        console.warn("Target render produk belum lengkap.");
         return;
     }
 
-    let jumlahTersedia = 0;
-    let markup = "";
+    const produkTersedia = produkUmkm.filter((produk) => produk.stok > 0);
+    const produkUnggulan = produkUmkm.find((produk) => produk.unggulan === true);
+    const markupProduk = produkTersedia.map(buatKartuProduk).join("");
 
-    for (const produk of produkUmkm) {
-        const status = statusStok(produk.stok);
-        const kategori = labelKategori(produk.kategori);
-        const labelAksi = produk.stok > 0 ? "Siap dipesan" : "Hubungi admin";
-        if (produk.stok > 0) {
-            jumlahTersedia = jumlahTersedia + 1;
-        }
-        markup = markup + `
-        <article class="js-product-card">
-            <h3>${produk.nama}</h3>
-            <p>${kategori}</p>
-            <p class="price">${formatRupiah.format(produk.harga)}</p>
-            <span class="stock-badge ${status.className}">${status.label}</span>
-            <p>${labelAksi}</p>
-        </article>
-        `;
-    }
-
-    grid.innerHTML = markup;
-    ringkasan.textContent = `${jumlahTersedia} produk tersedia dari ${produkUmkm.length} data.`;
+    grid.innerHTML = markupProduk;
+    ringkasan.textContent = `${produkTersedia.length} produk tersedia dari ${produkUmkm.length} data.`;
+    unggulan.textContent = produkUnggulan
+        ? `Produk unggulan: ${produkUnggulan.nama}`
+        : "Belum ada produk unggulan.";
 }
+
 
 function renderGaleriProduk() {
     const grid = document.querySelector("#galeri-produk");
@@ -156,7 +166,7 @@ function renderGaleriProduk() {
                 <p>${kategori}</p>
 
                 <p class="price">
-                    ${formatRupiah.format(produk.harga)}
+                    ${formatRupiah(produk.harga)}
                 </p>
 
                 <p>${labelAksi}</p>
