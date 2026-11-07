@@ -49,6 +49,7 @@ function formatRupiah(nilai) {
     maximumFractionDigits: 0,
   }).format(nilai);
 }
+console.log(formatRupiah(85000)); 
 
 const statusStok = (stok) => {
     if (stok === 0) {
@@ -59,6 +60,7 @@ const statusStok = (stok) => {
     }
     return { label: "Tersedia", className: "" };
 };
+console.log(statusStok(3));
 
 const labelKategori = (kategori) => {
     switch (kategori) {
@@ -70,80 +72,29 @@ const labelKategori = (kategori) => {
             return "Produk UMKM";
     }
 };
+console.log(labelKategori("Kopi"));
 
-function buatKartuProduk(produk) {
-  const status = statusStok(produk.stok);
+function buatKartuProduk(produk, tipe) {
+    const status = statusStok(produk.stok);
+    if (tipe === "produk") {
+        return `
+            <article class="js-product-card">
+                <h3>${produk.nama}</h3>
+                <p class="category-note">${produk.kategori}</p>
+                <p class="price">${formatRupiah(produk.harga)}</p>
+                <span class="stock-badge ${status.className}">${status.label}</span>
+            </article>
+        `;
+    };
 
-  return `
-    <article class="js-product-card">
-      <h3>${produk.nama}</h3>
-      <p class="category-note">${produk.kategori}</p>
-      <p class="price">${formatRupiah(produk.harga)}</p>
-      <span class="stock-badge ${status.className}">${status.label}</span>
-    </article>
-  `;
-}
-
-produkUmkm.forEach((produk) => {
-    console.log("Debug produk:", produk.nama, "stok:", produk.stok);
-});
-console.table(produkUmkm);
-
-function renderProduk() {
-    const grid = document.querySelector("#produk-dinamis");
-    const ringkasan = document.querySelector("#produk-ringkasan");
-    const unggulan = document.querySelector("#produk-unggulan");
-
-    if (!grid || !ringkasan || !unggulan) {
-        console.warn("Target render produk belum lengkap.");
-        return;
-    }
-
-    const produkTersedia = produkUmkm.filter((produk) => produk.stok > 0);
-    const produkUnggulan = produkUmkm.find((produk) => produk.unggulan === true);
-    const markupProduk = produkTersedia.map(buatKartuProduk).join("");
-
-    grid.innerHTML = markupProduk;
-    ringkasan.textContent = `${produkTersedia.length} produk tersedia dari ${produkUmkm.length} data.`;
-    unggulan.textContent = produkUnggulan
-        ? `Produk unggulan: ${produkUnggulan.nama}`
-        : "Belum ada produk unggulan.";
-}
-
-
-function renderGaleriProduk() {
-    const grid = document.querySelector("#galeri-produk");
-    const ringkasan = document.querySelector("#galeri-ringkasan");
-
-    if (!grid || !ringkasan) {
-        return;
-    }
-
-    let jumlahTersedia = 0;
-    let jumlahUnggulan = 0;
-    let markup = "";
-
-    for (const produk of galeriProduk) {
-        const status = statusStok(produk.stok);
-        const kategori = labelKategori(produk.kategori);
-
-        const badgeUnggulan = produk.unggulan
-            ? `<span class="featured-badge">Produk unggulan</span>`
-            : "";
-
-        const labelAksi = produk.stok > 0
-            ? "Siap dipesan"
-            : "Hubungi admin";
-
-        if (produk.stok > 0) {
-            jumlahTersedia++;
-        }
-
-        if (produk.unggulan === true) {
-            jumlahUnggulan++;
-        }
-
-        markup += `
+    const kategori = labelKategori(produk.kategori);
+    const badgeUnggulan = produk.unggulan
+        ? `<span class="featured-badge">Produk unggulan</span>`
+        : "";
+    const labelAksi = produk.stok > 0 
+        ? "Siap dipesan" 
+        : "Hubungi admin";
+    return `
         <article class="js-product-card">
             <div class="gallery-image">
                 <img
@@ -153,6 +104,7 @@ function renderGaleriProduk() {
                     height="360"
                     loading="lazy"
                 >
+
                 <div class="image-badges">
                     ${badgeUnggulan}
                     <span class="stock-badge ${status.className}">
@@ -172,19 +124,63 @@ function renderGaleriProduk() {
                 <p>${labelAksi}</p>
             </div>
         </article>
-        `;
+    `;
+}
+console.log(buatKartuProduk(produkUmkm[0], "produk"));
+
+produkUmkm.forEach((produk) => {
+    console.log("Debug produk:", produk.nama, "stok:", produk.stok);
+});
+console.table(produkUmkm);
+
+function renderProduk() {
+    const grid = document.querySelector("#produk-dinamis");
+    const ringkasan = document.querySelector("#produk-ringkasan");
+    const unggulan = document.querySelector("#produk-unggulan");
+
+    if (!grid || !ringkasan || !unggulan) {
+        console.warn("Target render produk belum lengkap.");
+        return;
     }
 
-    grid.innerHTML = markup;
+    const produkTersedia = produkUmkm.filter((produk) => produk.stok > 0);
+    console.log("Produk tersedia:", produkTersedia.length, "dari total:", produkUmkm.length);
+    const produkUnggulan = produkUmkm.find((produk) => produk.unggulan === true);
+    console.log("Produk unggulan:", produkUnggulan ? produkUnggulan.nama : "Belum ada");
+    const markupProduk = produkTersedia.map((produk) => buatKartuProduk(produk, "produk")).join("");
 
+    grid.innerHTML = markupProduk;
+    ringkasan.textContent = `${produkTersedia.length} produk tersedia dari ${produkUmkm.length} data.`;
+    unggulan.textContent = produkUnggulan
+        ? `Produk unggulan: ${produkUnggulan.nama}`
+        : "Belum ada produk unggulan.";
+}
+
+galeriProduk.forEach((produk) => {
+    console.log("Debug galeri produk:", produk.nama, "stok:", produk.stok);
+});
+console.table(galeriProduk);
+
+function renderGaleriProduk() {
+    const grid = document.querySelector("#galeri-produk");
+    const ringkasan = document.querySelector("#galeri-ringkasan");
+
+    if (!grid || !ringkasan) {
+        console.warn("Target render galeri produk belum lengkap.");
+        return;
+    }
+
+    const produkTersedia = galeriProduk.filter((produk) => produk.stok > 0);
+    const produkUnggulan = galeriProduk.filter((produk) => produk.unggulan === true);
+    const markup = galeriProduk.map((produk) => buatKartuProduk(produk, "galeri")).join("");
+
+    grid.innerHTML = markup;
     ringkasan.textContent =
-        `${jumlahTersedia} produk tersedia dari ${galeriProduk.length} data. ` +
-        `${jumlahUnggulan} produk merupakan produk unggulan.`;
+        `${produkTersedia.length} produk tersedia dari ${galeriProduk.length} data. ` +
+        `${produkUnggulan.length} produk merupakan produk unggulan.`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     renderProduk();
     renderGaleriProduk();
 });
-
-console.table(galeriProduk);
