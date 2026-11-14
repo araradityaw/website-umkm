@@ -10,15 +10,22 @@
 <body>
     <a class="skip-link" href="#konten">Lewati ke konten utama</a>
     <header class="site-header">
-        <nav class="nav" aria-label="Navigasi utama">
-        <a class="brand" href="index.html">Kopi Nusa</a>
-        <ul>
-            <li><a aria-current="page" href="index.html">Beranda</a></li>
-            <li><a href="tentang.html">Tentang Kami</a></li>
-            <li><a href="produk.html">Produk</a></li>
-            <li><a href="galeri.html">Galeri</a></li>
-            <li><a href="kontak.html">Kontak</a></li>
-        </ul>
+        <nav class="nav">
+            <div class="group">
+                <a href="index.html" class="brand">Kopi Nusa</a>    
+                <button class="nav-toggle" type="button" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="nav-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <ul id="nav-menu">
+                <li><a aria-current="page" href="index.html">Beranda</a></li>
+                <li><a href="tentang.html">Tentang Kami</a></li>
+                <li><a href="produk.html">Produk</a></li>
+                <li><a href="galeri.html">Galeri</a></li>
+                <li><a href="kontak.html">Kontak</a></li>
+            </ul>
         </nav>
     </header>
 

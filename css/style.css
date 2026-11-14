@@ -78,6 +78,14 @@ img {
   gap: var(--space-3);
   align-items: flex-start;
 }
+
+.nav .group {
+  display: flex; 
+  gap: var(--space-3); 
+  justify-content: space-between;  
+  width: 100%; 
+}
+
 .brand {
   margin-bottom: 0;
   color: var(--color-text);
@@ -99,6 +107,63 @@ img {
   text-decoration: none;
   background: #fef3c7;
   border-radius: var(--radius-lg);
+}
+
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav.is-open .nav-toggle span:first-child {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav.is-open .nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav.is-open .nav-toggle span:last-child {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav ul {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.nav.is-open ul {
+  display: flex;
+}
+
+.nav ul li {
+  width: 100%;
+}
+
+.nav ul a {
+  display: block;
+  padding: var(--space-2);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.nav ul a:hover {
+  background: var(--color-surface-soft);
 }
 
 .page { padding-block: var(--space-5); width: min(100% - 2rem, 60rem); margin-inline: auto; }
@@ -262,6 +327,7 @@ audio { max-width: 100%; }
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-surface);
+  max-width: 400px;
 }
 
 .stock-badge {
@@ -310,6 +376,7 @@ audio { max-width: 100%; }
     left: 12px;
     right: 12px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
     gap: 8px;
@@ -328,8 +395,6 @@ audio { max-width: 100%; }
 
 .gallery-image .stock-badge {
     display: inline-block;
-    white-space: nowrap;
-    margin-left: auto;
     margin-block-start: 0;
 }
 
@@ -391,7 +456,6 @@ audio { max-width: 100%; }
   color: #64748b;
 }
 
-
 @media (min-width: 42rem) {
   .nav ul { flex-direction: row; }
   .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -409,5 +473,9 @@ audio { max-width: 100%; }
 
 @media (min-width: 60rem) {
   .nav { flex-direction: row; align-items: center; justify-content: space-between; }
+  .nav .group { width: auto; }
+  .nav-toggle { display: none; }
+  .nav ul { display: flex; width: auto; flex-direction: row; align-items: center; gap: var(--space-2); }
+  .nav ul li { width: auto; }
   .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
