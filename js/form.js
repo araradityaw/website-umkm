@@ -47,6 +47,16 @@ function validasiRadio(inputs, errorId, pesanError) {
   return terpilih;
 }
 
+fields.forEach((field) => {
+  field.addEventListener("input", () => {
+    validasiField(field);
+  });
+
+  field.addEventListener("change", () => {
+    validasiField(field);
+  });
+});
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -96,7 +106,7 @@ function tampilkanPreview() {
   formFeedback.classList.add("success");
 }
 
-const STORAGE_KEY = "kopi-nusa-preferensi-kontak";
+const STORAGE_KEY = "kopi-nusa-preferensi";
 
 function simpanPreferensi() {
   const data = new FormData(form);
