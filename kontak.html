@@ -31,19 +31,21 @@
     <main id="konten" class="page">
         <h1>Kontak Kopi Nusa</h1>
         <p>Silakan kirim pertanyaan tentang produk, pesanan, atau kerja sama.</p>
-        <form id="form-kontak" action="#" method="post">
+        <form id="form-kontak" action="#" method="post" novalidate>
             <div class="field">
                 <label for="nama">Nama lengkap</label>
-                <input id="nama" name="nama" type="text" autocomplete="name" placeholder="contoh: John Male" required minlength="3" />
+                <input id="nama" name="nama" type="text" autocomplete="name" placeholder="contoh: John Male" required minlength="3" aria-describedby="nama-error"/>
+                <p id="nama-error" class="field-error" aria-live="polite">Nama lengkap harus diisi dan minimal 3 karakter.</p>
             </div>
             <div class="emailwa-wrapper">
                 <div class="field">
                     <label for="email">Email</label>
-                    <input id="email" name="email" type="email" autocomplete="email" placeholder="contoh: johnman@gmail.com" required />
+                    <input id="email" name="email" type="email" autocomplete="email" placeholder="contoh: johnman@gmail.com" required aria-describedby="email-error"/>
+                    <p id="email-error" class="field-error" aria-live="polite">Email tidak valid.</p>
                 </div>
                 <div class="field">
-                    <label for="whatsapp">Nomor WhatsApp</label>
-                    <input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="contoh: 081234567890"/>
+                    <label for="whatsapp">Nomor WhatsApp <span style="color: #666; font-size: 0.92em; font-style: italic; font-weight: normal;">(opsional)</span></label>
+                    <input id="whatsapp" name="whatsapp" type="number" autocomplete="cc-number" placeholder="contoh: 081234567890" aria-describedby="whatsapp-error"/>
                 </div>
             </div>
             <div class="field">
@@ -55,24 +57,29 @@
                     <option value="tester">Paket tester</option>
                     <option value="reseller">Paket reseller</option>
                 </select>
+                <p id="paket-error" class="field-error" aria-live="polite">Paket harus dipilih.</p>
             </div>
-            <fieldset>
+            <fieldset aria-describedby="waktu-kontak-error">
                 <legend>Waktu yang diinginkan untuk dihubungi</legend>
                 <label><input type="radio" name="waktu-kontak" value="pagi" /> Pagi (08.00–11.00)</label>
                 <label><input type="radio" name="waktu-kontak" value="siang" /> Siang (11.00–15.00)</label>
                 <label><input type="radio" name="waktu-kontak" value="sore" /> Sore (15.00–18.00)</label>
+                <p id="waktu-kontak-error" class="field-error" aria-live="polite">Pilih salah satu waktu yang diinginkan.</p>
             </fieldset>
-            <fieldset>
+            <fieldset aria-describedby="topik-error">
                 <legend>Topik pertanyaan</legend>
                 <label><input type="radio" name="topik" value="produk" required /> Informasi produk</label>
                 <label><input type="radio" name="topik" value="pesanan" /> Status pesanan</label>
                 <label><input type="radio" name="topik" value="kerja-sama" /> Kerja sama</label>
+                <p id="topik-error" class="field-error" aria-live="polite">Pilih salah satu topik pertanyaan.</p>
             </fieldset>
             <div class="field">
                 <label for="pesan">Pesan</label>
-                <textarea id="pesan" name="pesan" rows="5" required minlength="10"></textarea>
+                <textarea id="pesan" name="pesan" rows="5" required minlength="10" aria-describedby="pesan-error"></textarea>
+                <p id="pesan-error" class="field-error" aria-live="polite">Pesan harus diisi dan minimal 10 karakter.</p>
             </div>
             <button type="submit">Tampilkan Preview</button>
+            <p id="form-feedback" role="status" aria-live="polite"></p>
         </form>
         <section aria-labelledby="preview-title">
             <h2 id="preview-title">Preview Data</h2>
