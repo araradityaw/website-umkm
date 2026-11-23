@@ -1,0 +1,29 @@
+[
+  {
+    "id": "arabika-gayo",
+    "name": "Arabika Gayo",
+    "category": "Kopi",
+    "price": 85000,
+    "stock": 12,
+    "featured": false,
+    "description": "Kopi arabika beraroma buah tropis dan gula aren."
+  },
+  {
+    "id": "robusta-temanggung",
+    "name": "Robusta Temanggung",
+    "category": "Kopi",
+    "price": 65000,
+    "stock": 4,
+    "featured": true,
+    "description": "Robusta pekat untuk susu, espresso blend, dan minuman dingin."
+  },
+  {
+    "id": "paket-seduh",
+    "name": "Paket Seduh",
+    "category": "Bundling",
+    "price": 75000,
+    "stock": 5,
+    "featured": false,
+    "description": "Kopi 250 gram, filter, dan panduan seduh untuk pemula."
+  }
+]
