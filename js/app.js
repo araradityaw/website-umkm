@@ -24,13 +24,6 @@ if (nav && navToggle && navMenu) {
     });
 }
 
-const produkUmkm = [
-  { nama: "Arabika Gayo", kategori: "Kopi", harga: 85000, stok: 12, unggulan: true },
-  { nama: "Robusta Temanggung", kategori: "Kopi", harga: 65000, stok: 4, unggulan: false },
-  { nama: "Paket Seduh", kategori: "Bundling", harga: 125000, stok: 0, unggulan: false },
-  { nama: "Drip Bag Nusantara", kategori: "Kopi", harga: 45000, stok: 18, unggulan: false },
-];
-
 const galeriProduk = [
   {
     nama: "Kopi Tubruk Signature",
@@ -180,19 +173,6 @@ function buatEmptyState(kategori) {
   return empty;
 }
 
-const tombolFilter = document.querySelectorAll("[data-filter]");
-tombolFilter.forEach((tombol) => {
-  tombol.addEventListener("click", (event) => {
-    const tombolAktif = event.currentTarget;
-    const kategori = tombolAktif.dataset.filter;
-
-    tombolFilter.forEach((item) => item.classList.remove("is-active"));
-    tombolAktif.classList.add("is-active");
-
-    renderProduk(kategori);
-  });
-});
-
 const tombolFilterGaleri = document.querySelectorAll("[data-filter-galeri]");
 tombolFilterGaleri.forEach((tombol) => {
     tombol.addEventListener("click", (event) => {
@@ -204,10 +184,6 @@ tombolFilterGaleri.forEach((tombol) => {
 
         renderGaleriProduk(kategori);
     });
-});
-
-produkUmkm.forEach((produk) => {
-    console.log("Debug produk:", produk.nama, "stok:", produk.stok);
 });
 
 function renderProduk(kategoriAktif = "Semua") {
@@ -278,6 +254,7 @@ function renderGaleriProduk(kategoriAktif = "Semua") {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    renderProduk();
-    renderGaleriProduk();
+    if (document.querySelector('a[aria-current="page"][href="galeri.html"]')) {
+        renderGaleriProduk();
+    }
 });

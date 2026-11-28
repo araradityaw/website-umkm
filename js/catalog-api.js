@@ -32,9 +32,11 @@ function createProductCard(product) {
   badge.classList.add("product-badge");
   badge.textContent = product.featured
     ? "Unggulan"
-    : product.stock <= 5
-      ? "Stok Terbatas"
-      : product.category;
+    : product.stock === 0
+      ? "Habis"
+      : product.stock <= 5
+        ? "Stok Terbatas"
+        : product.category;
 
   const title = document.createElement("h3");
   title.textContent = product.name;
@@ -79,6 +81,14 @@ function buatEmptyState(category = activeCategory) {
 function renderProducts(items) {
   produkGrid.replaceChildren();
 
+  const featured = products.find(
+    (product) => product.featured
+  );
+
+  produkUnggulan.textContent = featured
+    ? `Produk unggulan: ${featured.name} - ${formatRupiah(featured.price)}`
+    : "Belum ada produk unggulan.";
+
   if (items.length === 0) {
     produkGrid.append(buatEmptyState());
     produkRingkasan.textContent = "0 produk ditemukan.";
@@ -88,14 +98,6 @@ function renderProducts(items) {
   items.forEach((product) => {
     produkGrid.append(createProductCard(product));
   });
-
-  const featured = products.find(
-    (product) => product.featured
-  );
-
-  produkUnggulan.textContent = featured
-    ? `Produk unggulan: ${featured.name} - ${formatRupiah(featured.price)}`
-    : "Belum ada produk unggulan.";
 
   produkRingkasan.textContent =
     `${items.length} produk ditampilkan.`;
@@ -124,7 +126,7 @@ async function loadProducts() {
     }
 
     products = await response.json();
-    renderProducts(products)
+    applyFilter(activeCategory);
     setStatus(
       "success",
       `${products.length} produk berhasil dimuat.`
